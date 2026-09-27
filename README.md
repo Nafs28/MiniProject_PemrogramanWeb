@@ -1,2 +1,30 @@
-# MiniProject_PemrogramanWeb
-250180071 M. Daffa Annafis Rambe
+Product Information System (Desain Arsitektur)
+Mini Project 1: Perancangan konseptual cetak biru (blueprint) sistem manajemen data informasi produk berbasis arsitektur 3-tier (Layered Architecture).
+
+📌 Ringkasan ProyekProyek ini berfokus pada pematangan konsep arsitektur desain secara logis (Sesi Tanpa Coding / Pengetikan Kode). Tujuan utamanya adalah merancang struktur sistem yang rapi, terpisah, dan modular berdasarkan prinsip Separation of Concerns.
+
+Gambaran Arsitektur (3-Layer Architecture)
+
+Sistem dirancang dengan pemisahan menjadi 3 lapisan utama:
++-------------------------------------------------------+
+| 3. Presentation Layer (index.php)                     |
+|    - Merender layout tabel HTML                       |
+|    - Mengintegrasikan data & fungsi via require_once  |
+|    - Iterasi data via perulangan foreach              |
+|    - Pewarnaan khusus untuk stok kritis (< 3)         |
++---------------------------+---------------------------+
+                            |
+                            v
++-------------------------------------------------------+
+| 2. Processing Layer (functions.php)                   |
+|    - Fungsi: hitungTotalNilaiStok()                   |
+|    - Mengkalkulasi nilai aset gudang                  |
+|    - Logika kondisional penyaringan warna stok        |
++---------------------------+---------------------------+
+                            |
+                            v
++-------------------------------------------------------+
+| 1. Data Layer (products.php)                          |
+|    - Penampung Multidimensional Array                 |
+|    - Menyimpan atribut data produk komoditas          |
++-------------------------------------------------------+
