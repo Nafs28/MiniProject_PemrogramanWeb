@@ -1,13 +1,9 @@
 Product Information System (Desain Arsitektur)
-
 Mini Project 1: Perancangan konseptual cetak biru (blueprint) sistem manajemen data informasi produk berbasis arsitektur 3-tier (Layered Architecture).
-
 
 📌 Ringkasan ProyekProyek ini berfokus pada pematangan konsep arsitektur desain secara logis (Sesi Tanpa Coding / Pengetikan Kode). Tujuan utamanya adalah merancang struktur sistem yang rapi, terpisah, dan modular berdasarkan prinsip Separation of Concerns.
 
-
 Gambaran Arsitektur (3-Layer Architecture)
-
 
 Sistem dirancang dengan pemisahan menjadi 3 lapisan utama:
 +-------------------------------------------------------+
