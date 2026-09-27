@@ -1,11 +1,11 @@
 Blueprint Arsitektur Sistem - Mini Project 1: Product Information System
 Nama : M. Daffa Annafis Rambe  NIM : 250180071
-1. Ringkasan Eksekutif (Executive Summary)
 
+
+1. Ringkasan Eksekutif (Executive Summary)
 Dokumen ini merupakan cetak biru (blueprint) perancangan konseptual untuk Product Information System. Sistem ini dirancang menggunakan pendekatan arsitektur berlapis (Layered Architecture) yang memisahkan antara pengelolaan data, logika bisnis/pemrosesan, dan antarmuka pengguna.
 
 2. Struktur Arsitektur Sistem (Layered Architecture)
-
 Sistem dibagi menjadi 3 lapisan utama:
 
                     PRESENTATION LAYER
@@ -29,12 +29,11 @@ Sistem dibagi menjadi 3 lapisan utama:
 |    Deskripsi                                          |
 
 3. Spesifikasi Komponen
+  A. Data Layer (products.php)
+  
+    - Peran: Tempat penyimpanan data terstruktur secara in-memory menggunakan multidimensional array.
 
-A. Data Layer (products.php)
-
-- Peran: Tempat penyimpanan data terstruktur secara in-memory menggunakan multidimensional array.
-
-- Struktur Data:
+    - Struktur Data:
 $products = [
     [
         'id'        => (int),
@@ -48,49 +47,48 @@ $products = [
 ];
 
 
-B. Processing Layer (functions.php)
+  B. Processing Layer (functions.php)
 
-- Peran: Menampung logika bisnis dan perhitungan data.
+    - Peran: Menampung logika bisnis dan perhitungan data.
 
-- Komponen Utama:
+    - Komponen Utama:
 
-  a. Fungsi hitungTotalNilaiStok($products):
+      a. Fungsi hitungTotalNilaiStok($products):
 
-      - Input: Array multidimensi produk.
+        - Input: Array multidimensi produk.
 
-      - Proses: Mengiterasi setiap produk dan mengkalkulasi Total Aset = SUM(Harga * Stok).
+        - Proses: Mengiterasi setiap produk dan mengkalkulasi Total Aset = SUM(Harga * Stok).
 
-      - Output: Nilai numerik total aset gudang.
+        - Output: Nilai numerik total aset gudang.
+      b. Logika Conditional Stok Kritis:
 
-  b. Logika Conditional Stok Kritis:
+        - Menilai apakah stok < 3.
+  
+        - Mengembalikan status penandaan (misal: pemberian kelas CSS khusus atau warna latar belakang baris tabel).
 
-      - Menilai apakah stok < 3.
+  C. Presentation Layer (index.php)
 
-      - Mengembalikan status penandaan (misal: pemberian kelas CSS khusus atau warna latar belakang baris tabel).
+    - Peran: Menampilkan data dan informasi akhir kepada pengguna melalui antarmuka web.
 
-C. Presentation Layer (index.php)
+    - Alur Kerja:
 
-- Peran: Menampilkan data dan informasi akhir kepada pengguna melalui antarmuka web.
+      a. Memuat berkas dependency menggunakan require_once 'products.php'; dan require_once 'functions.php';.
 
-- Alur Kerja:
+      b. Memanggil fungsi hitungTotalNilaiStok() untuk menampilkan total aset.
 
-    a. Memuat berkas dependency menggunakan require_once 'products.php'; dan require_once 'functions.php';.
+      c. Menggunakan perulangan foreach pada $products untuk mencetak baris-baris tabel HTML.
 
-    b. Memanggil fungsi hitungTotalNilaiStok() untuk menampilkan total aset.
+      d. Menerapkan kondisi CSS/style khusus pada baris tabel jika produk memiliki stok < 3.
 
-    c. Menggunakan perulangan foreach pada $products untuk mencetak baris-baris tabel HTML.
+  4. Alur Data (Data Flow Diagram - Level 0)
 
-    d. Menerapkan kondisi CSS/style khusus pada baris tabel jika produk memiliki stok < 3.
+      a. Inisialisasi: index.php memuat products.php dan functions.php.
 
-4. Alur Data (Data Flow Diagram - Level 0)
+      b. Pemrosesan: index.php mengirimkan array $products ke fungsi hitungTotalNilaiStok() di functions.php.
 
-    a. Inisialisasi: index.php memuat products.php dan functions.php.
+      c. Kalkulasi: functions.php menghitung total nilai aset gudang (Harga x Stok) lalu mengembalikan hasil ke index.php.
 
-    b. Pemrosesan: index.php mengirimkan array $products ke fungsi hitungTotalNilaiStok() di functions.php.
-
-    c. Kalkulasi: functions.php menghitung total nilai aset gudang (Harga x Stok) lalu mengembalikan hasil ke index.php.
-
-    d. Rendering: index.php memuat struktur tabel HTML:
-      - Menampilkan total nilai aset gudang di bagian atas/rangkuman.
-      - Melakukan iterasi foreach untuk menyusun baris tabel produk.
-      - Mengecek status stok < 3 untuk memberikan warna visual/peringatan pada baris tabel terkait.
+      d. Rendering: index.php memuat struktur tabel HTML:
+        - Menampilkan total nilai aset gudang di bagian atas/rangkuman.
+        - Melakukan iterasi foreach untuk menyusun baris tabel produk.
+        - Mengecek status stok < 3 untuk memberikan warna visual/peringatan pada baris tabel terkait.
