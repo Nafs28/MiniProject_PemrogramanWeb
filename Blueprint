@@ -1,5 +1,5 @@
 *** Blueprint Arsitektur Sistem - Mini Project 1: Product Information System ***
-** Nama : M. Daffa Annafis Rambe  NIM : 250180071 **
+__Nama : M. Daffa Annafis Rambe  NIM : 250180071__ 
 1. Ringkasan Eksekutif (Executive Summary)
 
 Dokumen ini merupakan cetak biru (blueprint) perancangan konseptual untuk Product Information System. Sistem ini dirancang menggunakan pendekatan arsitektur berlapis (Layered Architecture) yang memisahkan antara pengelolaan data, logika bisnis/pemrosesan, dan antarmuka pengguna.
