@@ -1,1 +1,96 @@
+***Blueprint Arsitektur Sistem - Mini Project 1: Product Information System***
+**Nama : M. Daffa Annafis Rambe  NIM : 250180071**
+1. Ringkasan Eksekutif (Executive Summary)
 
+Dokumen ini merupakan cetak biru (blueprint) perancangan konseptual untuk Product Information System. Sistem ini dirancang menggunakan pendekatan arsitektur berlapis (Layered Architecture) yang memisahkan antara pengelolaan data, logika bisnis/pemrosesan, dan antarmuka pengguna.
+
+2. Struktur Arsitektur Sistem (Layered Architecture)
+
+Sistem dibagi menjadi 3 lapisan utama:
+
+                    PRESENTATION LAYER
+|                      (index.php)                      |
+|  - Merender HTML / UI Layout                          |
+|  - Mengambil data via require_once                    |
+|  - Iterasi data menggunakan `foreach`                 |
+|  - Penandaan warna baris stok kritis (< 3)            |
+
+                     PROCESSING LAYER
+|                    (functions.php)                    |
+|  - Fungsi `hitungTotalNilaiStok()`                    |
+|  - Logika kalkulasi total aset gudang                 |
+|  - Logika penyaringan status/kondisi stok             |
+
+
+                        DATA LAYER
+|                     (products.php)                    |
+|  - Menampung multidimensional array $products         |
+|  - Struktur Data: ID, Nama, Kategori, Harga, Stok,    |
+|    Deskripsi                                          |
+
+3. Spesifikasi Komponen
+
+A. Data Layer (products.php)
+
+- Peran: Tempat penyimpanan data terstruktur secara in-memory menggunakan multidimensional array.
+
+- Struktur Data:
+$products = [
+    [
+        'id'        => (int),
+        'nama'      => (string),
+        'kategori'  => (string),
+        'harga'     => (float/int),
+        'stok'      => (int),
+        'deskripsi' => (string)
+    ],
+    // ... baris data produk lainnya
+];
+
+
+B. Processing Layer (functions.php)
+
+- Peran: Menampung logika bisnis dan perhitungan data.
+
+- Komponen Utama:
+
+  a. Fungsi hitungTotalNilaiStok($products):
+
+      - Input: Array multidimensi produk.
+
+      - Proses: Mengiterasi setiap produk dan mengkalkulasi Total Aset = SUM(Harga * Stok).
+
+      - Output: Nilai numerik total aset gudang.
+
+  b. Logika Conditional Stok Kritis:
+
+      - Menilai apakah stok < 3.
+
+      - Mengembalikan status penandaan (misal: pemberian kelas CSS khusus atau warna latar belakang baris tabel).
+
+C. Presentation Layer (index.php)
+
+- Peran: Menampilkan data dan informasi akhir kepada pengguna melalui antarmuka web.
+
+- Alur Kerja:
+
+    a. Memuat berkas dependency menggunakan require_once 'products.php'; dan require_once 'functions.php';.
+
+    b. Memanggil fungsi hitungTotalNilaiStok() untuk menampilkan total aset.
+
+    c. Menggunakan perulangan foreach pada $products untuk mencetak baris-baris tabel HTML.
+
+    d. Menerapkan kondisi CSS/style khusus pada baris tabel jika produk memiliki stok < 3.
+
+4. Alur Data (Data Flow Diagram - Level 0)
+
+    a. Inisialisasi: index.php memuat products.php dan functions.php.
+
+    b. Pemrosesan: index.php mengirimkan array $products ke fungsi hitungTotalNilaiStok() di functions.php.
+
+    c. Kalkulasi: functions.php menghitung total nilai aset gudang (Harga x Stok) lalu mengembalikan hasil ke index.php.
+
+    d. Rendering: index.php memuat struktur tabel HTML:
+      - Menampilkan total nilai aset gudang di bagian atas/rangkuman.
+      - Melakukan iterasi foreach untuk menyusun baris tabel produk.
+      - Mengecek status stok < 3 untuk memberikan warna visual/peringatan pada baris tabel terkait.
